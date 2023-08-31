@@ -26,12 +26,40 @@ function showNav() {
     $(navLinks).animate({top: 0}, 750);
 }
 
+// End of Nav bar
+
+
+// Search Meals
+
 function searchMeals() {
     hideNav();
     $(searchAreaTag).removeClass('d-none');
 }
 
-// End of Nav bar
+async function searchByName(input) {
+    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`);
+    response = await response.json();
+    if (response.meals == null) {
+        displayMeals([]);
+    } else {
+        displayMeals(response.meals);
+    }
+}
+
+async function searchByLetter(input) {
+    if (input == '') {
+        input = 'a';
+    }
+    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${input}`);
+    response = await response.json();
+    if (response.meals == null) {
+        displayMeals([]);
+    } else {
+        displayMeals(response.meals);
+    }
+}
+
+// End of Meals search
 
 
 // Display Meals on display area
@@ -61,6 +89,7 @@ function displayMeals(meals) {
 
 async function getCats() {
     hideNav();
+    $(searchAreaTag).addClass('d-none');
     displayMeals([]);
     let response = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
     response = await response.json();
@@ -98,10 +127,10 @@ async function getCatMeals(cat) {
 
 async function getAreas() {
     hideNav();
+    $(searchAreaTag).addClass('d-none');
     displayMeals([]);
     let response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
     response = await response.json();
-    console.log(response.meals);
     displayAreas(response.meals);
 }
 
@@ -130,32 +159,40 @@ async function getAreaMeals(area) {
 // End of Area Meals
 
 
-// Search Meals
+// Meals by Ingredients
 
-async function searchByName(input) {
-    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`);
+async function getIngs() {
+    hideNav();
+    $(searchAreaTag).addClass('d-none');
+    displayMeals([]);
+    let response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
     response = await response.json();
-    if (response.meals == null) {
-        displayMeals([]);
-    } else {
-        displayMeals(response.meals);
-    }
+    displayIngs(response.meals.slice(0, 20))
 }
 
-async function searchByLetter(input) {
-    if (input == '') {
-        input = 'a';
+function displayIngs(ings) {
+    let displayContent = ``;
+    for (i=0; i<ings.length; i++) {
+        const ing = ings[i];
+        displayContent += `
+            <div class="col-md-3">
+                <div onclick="getIngMeals('${ing.strIngredient}')" class="meal rounded-2 position-relative text-center text-white">
+                <i class="fa-solid fa-jar fa-4x"></i>   
+                    <h3>${ing.strIngredient}</h3>
+                </div>
+            </div>
+        `;
     }
-    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${input}`);
-    response = await response.json();
-    if (response.meals == null) {
-        displayMeals([]);
-    } else {
-        displayMeals(response.meals);
-    }
+    $(displayTag).html(displayContent);
 }
 
-// End of Meals search
+async function getIngMeals(ing) {
+    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ing}`);
+    response = await response.json();
+    displayMeals(response.meals.slice(0, 20));
+}
+
+// End of Ingredient Meals
 
 
 // Navigation events
