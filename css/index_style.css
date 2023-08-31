@@ -1,0 +1,17 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+
+
+nav .hide {
+    background-color: #0D0D0D;
+}
+
+nav .show .disp-btns i {
+    cursor: pointer;
+}
+
+nav .logo {
+    width: 50px;
+}
