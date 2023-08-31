@@ -10,7 +10,6 @@ function hideNav() {
     $(nav).animate({left: -navWidth}, 500);
     $(menuCloseBtnTag).addClass('d-none');
     $(menuShowBtnTag).removeClass('d-none');
-
     $(navLinks).animate({top: 300}, 500);
 }
 
@@ -18,21 +17,12 @@ function showNav() {
     $(nav).animate({left: 0}, 500);
     $(menuCloseBtnTag).removeClass('d-none');
     $(menuShowBtnTag).addClass('d-none');
-
     $(navLinks).animate({top: 0}, 750);
 }
 
 
-$(navLinks).click(function () { 
-    console.log('HII');
-});
+$(menuShowBtnTag).click(() => showNav());
 
-$(menuShowBtnTag).click(function() {
-    showNav();
-});
-
-$(menuCloseBtnTag).click(function () { 
-    hideNav();
-});
+$(menuCloseBtnTag).click(() => hideNav());
 
 hideNav();
