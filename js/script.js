@@ -33,6 +33,7 @@ function showNav() {
 
 function searchMeals() {
     hideNav();
+    $(displayTag).html('');
     $(searchAreaTag).removeClass('d-none');
 }
 
