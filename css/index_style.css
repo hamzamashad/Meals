@@ -22,6 +22,10 @@ nav .logo {
     width: 50px;
 }
 
+nav ul li {
+    cursor: pointer;
+}
+
 /* End of Navigation */
 
 

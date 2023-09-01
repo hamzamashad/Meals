@@ -70,7 +70,7 @@ function displayMeals(meals) {
         const meal = meals[i];
         displayContent += `
             <div class="col-md-3">
-                <div class="meal rounded-2 position-relative">
+                <div onclick="getMealInfo(${meal.idMeal})" class="meal rounded-2 position-relative">
                     <img src="${meal.strMealThumb}" class="img-fluid">
                     <div class="meal-overlay position-absolute d-flex align-items-center text-black p-2">
                         <h3>${meal.strMeal}</h3>
@@ -80,6 +80,58 @@ function displayMeals(meals) {
         `;
     }
     $(displayTag).html(displayContent);
+}
+
+async function getMealInfo(meal) {
+    hideNav();
+    $(searchAreaTag).addClass('d-none');
+    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal}`);
+    response = await response.json();
+    displayMeal(response.meals[0])
+}
+
+function displayMeal(meal) {
+    console.log(meal);
+
+    let ingredients = ``;
+    for (let i = 1; i <= 20; i++) {
+        if (meal[`strIngredient${i}`]) {
+            ingredients += `<li class="alert alert-info m-2 p-1">${meal[`strMeasure${i}`]} ${meal[`strIngredient${i}`]}</li>`
+        }
+    }
+    
+    let tags = [];
+    if (meal.strTags != null) {
+        tags = meal.strTags.split(",");
+    }
+    let tagList = ''
+    for (let i = 0; i < tags.length; i++) {
+        tagList += `
+        <li class="alert alert-danger m-2 p-1">${tags[i]}</li>`
+    }
+
+    let displayContent = `
+        <div class="col-md-4">
+            <img class="w-100 rounded-3" src="${meal.strMealThumb}">
+            <h2>${meal.strMeal}</h2>
+        </div>
+        <div class="col-md-8">
+            <h2>Instructions</h2>
+            <p>${meal.strInstructions}</p>
+            <h3><span class="fw-bolder">Area: </span>${meal.strArea}</h3>
+            <h3><span class="fw-bolder">Category: </span>${meal.strCategory}</h3>
+            <h3>Ingredients:</h3>
+            <ul class="list-unstyled d-flex g-3 flex-wrap">
+                ${ingredients}
+            </ul>
+            <h3>Tags:</h3>
+            <ul class="list-unstyled d-flex g-3 flex-wrap">
+               ${tagList}
+            </ul>
+            <a target="_blank" href="#" class="btn btn-success">Source</a>
+            <a target="_blank" href="#" class="btn btn-danger">Youtube</a>
+        </div>
+    `
 }
 
 // End of Meals display
