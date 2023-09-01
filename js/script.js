@@ -118,11 +118,11 @@ function displayMeal(meal) {
             <p>${meal.strInstructions}</p>
             <h3><span class="fw-bolder">Area: </span>${meal.strArea}</h3>
             <h3><span class="fw-bolder">Category: </span>${meal.strCategory}</h3>
-            <h3>Ingredients:</h3>
+            <h3>Ingredients :</h3>
             <ul class="list-unstyled d-flex g-3 flex-wrap">
                 ${ingredients}
             </ul>
-            <h3>Tags:</h3>
+            <h3>Tags :</h3>
             <ul class="list-unstyled d-flex g-3 flex-wrap">
                ${tagList}
             </ul>
