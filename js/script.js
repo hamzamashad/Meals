@@ -251,6 +251,15 @@ async function getIngMeals(ing) {
 
 // Contact
 
+const nameRegex = /^[a-zA-Z ]+$/,
+emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+mobileRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+ageRegex = /^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/,
+passwordRegex = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/;
+
+let validFlag = false,
+validName, validEmail, validMobile, validAge, validPassword; 
+
 function contact() {
     hideNav();
     $(searchAreaTag).addClass('d-none');
@@ -272,7 +281,7 @@ function contact() {
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <input id="phoneInput" type="number" class="form-control" placeholder="Enter your Mobile Number">
+                        <input id="phoneInput" type="text" class="form-control" placeholder="Enter your Mobile Number">
                         <div class="alert alert-danger w-100 mt-2 d-none">
                             Mobile Number entered is not valid
                         </div>
@@ -284,25 +293,104 @@ function contact() {
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <input id="passwordInput" type="text" class="form-control" placeholder="Create a Password">
+                        <input id="passwordInput" type="password" class="form-control" placeholder="Create a Password">
                         <div class="alert alert-danger w-100 mt-2 d-none">
                             Minimum eight characters, at least one letter and one number.
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <input id="repasswordInput" type="text" class="form-control" placeholder="Confirm Password">
+                        <input id="repasswordInput" type="password" class="form-control" placeholder="Confirm Password">
                         <div class="alert alert-danger w-100 mt-2 d-none">
                             Passwords doesn't match
                         </div>
                     </div>
                 </div>
+                <button id="submitBtn" disabled class="btn btn-outline-danger px-2 mt-3">Submit</button>
             </div>
         </div>
     `;
     $(displayTag).html(displayContent);
-    $('.form-control').focus(function () {
-        $(this).next('.alert').removeClass('d-none');
+    $('.form-control').keyup(function () {
+        validateInput(this.value, this.id);
+        if (validFlag) {
+            $(this).next('.alert').addClass('d-none');
+        } else {
+            $(this).next('.alert').removeClass('d-none');
+        }
     });
+}
+
+function validateInput(input, type) {
+    if (type == 'nameInput') {
+        if (nameRegex.test(input)) {
+            validFlag = true;
+            validName = true;
+        }
+        else {
+            validFlag = false;
+            validName = false;
+        }
+    } else if (type == 'emailInput') {
+        if (emailRegex.test(input)) {
+            validFlag = true;
+            validEmail = true;
+        }
+        else {
+            validFlag = false;
+            validEmail = false;
+        }
+    } else if (type == 'phoneInput') {
+        if (mobileRegex.test(input)) {
+            validFlag = true;
+            validMobile = true;
+        }
+        else {
+            validFlag = false;
+            validMobile = false;
+        }
+    } else if (type == 'ageInput') {
+        if (ageRegex.test(input)) {
+            validFlag = true;
+            validAge = true;
+        }
+        else {
+            validFlag = false;
+            validAge = false;
+        }
+    } else if (type == 'passwordInput') {
+        if (passwordRegex.test(input)) {
+            validFlag = true;
+            if (input == $('#repasswordInput').val()) {
+                validPassword = true;
+                $('#repasswordInput').next('.alert').addClass('d-none');
+            } else {
+                validPassword = false;
+                $('#repasswordInput').next('.alert').removeClass('d-none');
+            }
+        }
+        else {
+            validFlag = false;
+        }
+    } else if (type == 'repasswordInput') {
+        if (input == $('#passwordInput').val()) {
+            validFlag = true;
+            validPassword = true;
+        } else {
+            validFlag = false;
+            validPassword = false;
+        }
+    }
+
+    console.log(validName, validEmail, validMobile, validAge, validPassword);
+    if (validName &&
+        validEmail &&
+        validMobile &&
+        validAge &&
+        validPassword) {
+            console.log('ALL VALID');
+    } else {
+            console.log('NOT VALID');
+    }
 }
 
 // End of Contact
