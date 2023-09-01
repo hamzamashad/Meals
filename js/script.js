@@ -105,7 +105,8 @@ function displayMeal(meal) {
     let tagList = ''
     for (let i = 0; i < tags.length; i++) {
         tagList += `
-        <li class="alert alert-danger m-2 p-1">${tags[i]}</li>`
+            <li class="alert alert-danger m-2 p-1">${tags[i]}</li>
+        `;
     }
 
     let displayContent = `
