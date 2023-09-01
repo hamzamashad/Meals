@@ -7,7 +7,9 @@ menuTag = 'nav .hide',
 searchAreaTag = '.search',
 nameSearchTag = '#nameSearch',
 letterSearchTag = '#letterSearch',
-displayTag = '.display .container .row';
+displayTag = '.display .container .row',
+loadingScreen = '#loadingScreen',
+displayLoadingScreen = '#displayLoadingScreen';
 
 
 // Nav bar effects
@@ -39,6 +41,7 @@ function searchMeals() {
 }
 
 async function searchByName(input) {
+    $(displayLoadingScreen).fadeIn(350);
     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`);
     response = await response.json();
     if (response.meals == null) {
@@ -46,9 +49,11 @@ async function searchByName(input) {
     } else {
         displayMeals(response.meals);
     }
+    $(displayLoadingScreen).fadeOut(350);
 }
 
 async function searchByLetter(input) {
+    $(displayLoadingScreen).fadeIn(350);
     if (input == '') {
         input = 'a';
     }
@@ -59,6 +64,7 @@ async function searchByLetter(input) {
     } else {
         displayMeals(response.meals);
     }
+    $(displayLoadingScreen).fadeOut(350);
 }
 
 // End of Meals search
@@ -85,11 +91,13 @@ function displayMeals(meals) {
 }
 
 async function getMealInfo(meal) {
+    $(displayLoadingScreen).fadeIn(350);
     hideNav();
     $(searchAreaTag).addClass('d-none');
     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal}`);
     response = await response.json();
-    displayMeal(response.meals[0])
+    displayMeal(response.meals[0]);
+    $(displayLoadingScreen).fadeOut(350);
 }
 
 function displayMeal(meal) {
@@ -142,12 +150,14 @@ function displayMeal(meal) {
 // Meals by Category
 
 async function getCats() {
+    $(displayLoadingScreen).fadeIn(350);
     hideNav();
     $(searchAreaTag).addClass('d-none');
     displayMeals([]);
     let response = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
     response = await response.json();
     displayCats(response.categories);
+    $(displayLoadingScreen).fadeOut(350);
 }
 
 function displayCats(cats) {
@@ -169,9 +179,11 @@ function displayCats(cats) {
 }
 
 async function getCatMeals(cat) {
+    $(displayLoadingScreen).fadeIn(350);
     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${cat}`);
     response = await response.json();
     displayMeals(response.meals.slice(0, 20));
+    $(displayLoadingScreen).fadeOut(350);
 }
 
 // End of Category Meals
@@ -180,12 +192,14 @@ async function getCatMeals(cat) {
 // Meals by Area
 
 async function getAreas() {
+    $(displayLoadingScreen).fadeIn(350);
     hideNav();
     $(searchAreaTag).addClass('d-none');
     displayMeals([]);
     let response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
     response = await response.json();
     displayAreas(response.meals);
+    $(displayLoadingScreen).fadeOut(350);
 }
 
 function displayAreas(areas) {
@@ -205,9 +219,11 @@ function displayAreas(areas) {
 }
 
 async function getAreaMeals(area) {
+    $(displayLoadingScreen).fadeIn(350);
     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
     response = await response.json();
     displayMeals(response.meals.slice(0, 20));
+    $(displayLoadingScreen).fadeOut(350);
 }
 
 // End of Area Meals
@@ -216,12 +232,14 @@ async function getAreaMeals(area) {
 // Meals by Ingredients
 
 async function getIngs() {
+    $(displayLoadingScreen).fadeIn(350);
     hideNav();
     $(searchAreaTag).addClass('d-none');
     displayMeals([]);
     let response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
     response = await response.json();
     displayIngs(response.meals.slice(0, 20))
+    $(displayLoadingScreen).fadeOut(350);
 }
 
 function displayIngs(ings) {
@@ -241,9 +259,11 @@ function displayIngs(ings) {
 }
 
 async function getIngMeals(ing) {
+    $(displayLoadingScreen).fadeIn(350);
     let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ing}`);
     response = await response.json();
     displayMeals(response.meals.slice(0, 20));
+    $(displayLoadingScreen).fadeOut(350);
 }
 
 // End of Ingredient Meals
@@ -407,6 +427,6 @@ $(letterSearchTag).keyup(function() {
 hideNav();
 $(document).ready(() => {
     searchByName("").then(() => {
-        $(".loading-screen").fadeOut(750);
+        $(loadingScreen).fadeOut(750);
     })
 })
