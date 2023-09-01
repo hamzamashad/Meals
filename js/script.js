@@ -1,3 +1,4 @@
+// variables holding tag selectors str
 const menuShowBtnTag = 'nav .disp-btns .fa-bars',
 menuCloseBtnTag = 'nav .disp-btns .fa-x',
 nav = 'nav',
@@ -246,6 +247,65 @@ async function getIngMeals(ing) {
 }
 
 // End of Ingredient Meals
+
+
+// Contact
+
+function contact() {
+    hideNav();
+    $(searchAreaTag).addClass('d-none');
+    displayMeals([]);
+    const displayContent = `
+        <div class="d-flex min-vh-100 justify-content-center align-items-center">
+            <div class="container w-75 text-center py-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <input id="nameInput" type="text" class="form-control" placeholder="Enter your Name">
+                        <div id="nameMsg" class="alert alert-danger w-100 mt-2 d-none">
+                            Special characters and numbers are not allowed
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="emailInput" type="email" class="form-control" placeholder="Enter your Email">
+                        <div class="alert alert-danger w-100 mt-2 d-none">
+                            Email entered is not valid
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="phoneInput" type="number" class="form-control" placeholder="Enter your Mobile Number">
+                        <div class="alert alert-danger w-100 mt-2 d-none">
+                            Mobile Number entered is not valid
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="ageInput" type="nunmber" class="form-control" placeholder="Enter your Age">
+                        <div class="alert alert-danger w-100 mt-2 d-none">
+                            Special characters and numbers are not allowed
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="passwordInput" type="text" class="form-control" placeholder="Create a Password">
+                        <div class="alert alert-danger w-100 mt-2 d-none">
+                            Minimum eight characters, at least one letter and one number.
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="repasswordInput" type="text" class="form-control" placeholder="Confirm Password">
+                        <div class="alert alert-danger w-100 mt-2 d-none">
+                            Passwords doesn't match
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    $(displayTag).html(displayContent);
+    $('.form-control').focus(function () {
+        $(this).next('.alert').removeClass('d-none');
+    });
+}
+
+// End of Contact
 
 
 // Navigation events
