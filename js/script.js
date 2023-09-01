@@ -91,8 +91,6 @@ async function getMealInfo(meal) {
 }
 
 function displayMeal(meal) {
-    console.log(meal);
-
     let ingredients = ``;
     for (let i = 1; i <= 20; i++) {
         if (meal[`strIngredient${i}`]) {
@@ -131,7 +129,8 @@ function displayMeal(meal) {
             <a target="_blank" href="#" class="btn btn-success">Source</a>
             <a target="_blank" href="#" class="btn btn-danger">Youtube</a>
         </div>
-    `
+    `;
+    $(displayTag).html(displayContent);
 }
 
 // End of Meals display
