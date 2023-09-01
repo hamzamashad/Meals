@@ -3,11 +3,17 @@ a {
     color: white;
 }
 
+/* Loading Screen */
+.loading-screen {
+    display: flex;
+    z-index: 9999;
+}
+
 
 /* Navigation */
 
 nav {
-    z-index: 99999999999;
+    z-index: 99;
 }
 
 nav .hide {
@@ -26,10 +32,8 @@ nav ul li {
     cursor: pointer;
 }
 
-/* End of Navigation */
 
-
-/* Meals Display Area */
+/* Display Area */
 
 .meal {
     overflow: hidden;

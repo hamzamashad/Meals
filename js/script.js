@@ -270,7 +270,7 @@ function contact() {
                 <div class="row g-4">
                     <div class="col-md-6">
                         <input id="nameInput" type="text" class="form-control" placeholder="Enter your Name">
-                        <div id="nameMsg" class="alert alert-danger w-100 mt-2 d-none">
+                        <div class="alert alert-danger w-100 mt-2 d-none">
                             Special characters and numbers are not allowed
                         </div>
                     </div>
@@ -405,4 +405,8 @@ $(letterSearchTag).keyup(function() {
 
 // onload
 hideNav();
-searchByName("");
+$(document).ready(() => {
+    searchByName("").then(() => {
+        $(".loading-screen").fadeOut(750);
+    })
+})
