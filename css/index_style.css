@@ -33,6 +33,7 @@ nav .show .disp-btns i {
 
 nav .logo {
     width: 50px;
+    cursor: pointer;
 }
 
 nav ul li {

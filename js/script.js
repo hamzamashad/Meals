@@ -414,6 +414,7 @@ function validateInput(input, type) {
 // Navigation events
 $(menuShowBtnTag).click(() => showNav());
 $(menuCloseBtnTag).click(() => hideNav());
+$('.logo').click(() => searchByName(""));
 
 // Search input events
 $(nameSearchTag).keyup(function() {
