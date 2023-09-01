@@ -381,15 +381,10 @@ function validateInput(input, type) {
         }
     }
 
-    console.log(validName, validEmail, validMobile, validAge, validPassword);
-    if (validName &&
-        validEmail &&
-        validMobile &&
-        validAge &&
-        validPassword) {
-            console.log('ALL VALID');
+    if (validName && validEmail && validMobile && validAge && validPassword) {
+        $('#submitBtn').attr('disabled', false);
     } else {
-            console.log('NOT VALID');
+        $('#submitBtn').attr('disabled', true);
     }
 }
 
