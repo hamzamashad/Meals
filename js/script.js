@@ -7,7 +7,7 @@ menuTag = 'nav .hide',
 searchAreaTag = '.search',
 nameSearchTag = '#nameSearch',
 letterSearchTag = '#letterSearch',
-displayTag = '.display .container .row',
+displayTag = '.display .row',
 loadingScreen = '#loadingScreen',
 displayLoadingScreen = '#displayLoadingScreen';
 

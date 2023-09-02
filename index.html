@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Meals</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/x-icon" href="images/logo.png">        
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/all.min.css">
@@ -14,7 +15,7 @@
         <div id="loadingScreen" class="position-fixed top-0 start-0 end-0 bottom-0 bg-black justify-content-center align-items-center text-white">
             <i class="fa fa-spinner fa-spin fa-5x"></i>
         </div>
-        <nav class="d-flex vh-100 position-fixed">
+        <nav class="d-flex min-vh-100 position-fixed top-0">
             <div class="hide text-white p-4 d-flex flex-column justify-content-between">
                 <ul class="list-unstyled d-flex flex-column gap-4">
                     <li onclick="searchMeals()" class="position-relative">Search</li>
@@ -46,16 +47,24 @@
                 </div>
             </div>
         </nav>
-        <div class="container py-4 d-flex flex-column gap-4 justify-content-center align-items-center">
+        <div class="min-vh-100 position-relative">
             <div id="displayLoadingScreen" class="position-fixed top-0 start-0 end-0 bottom-0 bg-black justify-content-center align-items-center text-white">
                 <i class="fa fa-spinner fa-spin fa-5x"></i>
             </div>
-            <div class="search d-flex w-75 gap-3 d-none">
-                <input type="text" id="nameSearch" class="form-control bg-transparent text-white flex-md-grow-1" placeholder="Search by name">
-                <input type="text" id="letterSearch" class="form-control bg-transparent text-white flex-md-grow-1" placeholder="Search by first letter" maxlength="1">
-            </div>
-            <div class="display container-fluid">
-                <div class="container text-white">
+            <div class="container text-white">
+                <div class="search mx-auto my-4 w-75 d-none">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" id="nameSearch" class="form-control bg-transparent text-white" placeholder="Search by name">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="letterSearch" class="form-control bg-transparent text-white" placeholder="Search by first letter" maxlength="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="display">
                     <div class="row g-4"></div>
                 </div>
             </div>
