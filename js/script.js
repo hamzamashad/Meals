@@ -428,4 +428,4 @@ $(letterSearchTag).keyup(function() {
 hideNav();
 $(document).ready(() => {
     searchByName("").then(() => $(loadingScreen).fadeOut(750))
-})
+});
