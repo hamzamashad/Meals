@@ -427,7 +427,5 @@ $(letterSearchTag).keyup(function() {
 // onload
 hideNav();
 $(document).ready(() => {
-    searchByName("").then(() => {
-        $(loadingScreen).fadeOut(750);
-    })
+    searchByName("").then(() => $(loadingScreen).fadeOut(750))
 })
